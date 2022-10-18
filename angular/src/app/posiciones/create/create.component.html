@@ -1,0 +1,64 @@
+<div>
+
+    <div class="d-flex justify-content-between">
+        <h4>Form customer</h4>
+        <a href="#" routerLink="/posiciones/index" class="btn btn-primaryt">Volver</a>
+    </div>
+
+    <hr />
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <div class="form-group row">
+            <div class="col-md-6 ">
+                <label for="title">idEmpresa:</label>
+                <input formControlName="idEmpresa" id="idEmpresa" type="text" class="form-control">
+                <div *ngIf="f.idEmpresa.touched && f.idEmpresa.invalid" class="alert alert-danger">
+                    <div *ngIf="f.idEmpresa.errors.required">*idEmpresa is required.</div>
+                    <div *ngIf="f.idEmpresa.errors.pattern">*The idEmpresa must only contain letters.</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6 ">
+                <label for="title">idProducto:</label>
+                <input formControlName="idProducto" id="idProducto" type="text" class="form-control">
+                <div *ngIf="f.idProducto.touched && f.idProducto.invalid" class="alert alert-danger">
+                    <div *ngIf="f.idProducto.errors.required">*idProducto is required.</div>
+                    <div *ngIf="f.idProducto.errors.pattern">*The idProducto must only contain letters.</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6 ">
+                <label for="title">fechaEntregaInicio:</label>
+                <input formControlName="fechaEntregaInicio" id="fechaEntregaInicio" type="text" class="form-control">
+                <div *ngIf="f.fechaEntregaInicio.touched && f.fechaEntregaInicio.invalid" class="alert alert-danger">
+                    <div *ngIf="f.fechaEntregaInicio.errors.required">*fechaEntregaInicio is required.</div>
+                    <div *ngIf="f.fechaEntregaInicio.errors.pattern">*The fechaEntregaInicio must only contain letters.</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6 ">
+                <label for="title">moneda:</label>
+                <input formControlName="moneda" id="moneda" type="text" class="form-control">
+                <div *ngIf="f.moneda.touched && f.moneda.invalid" class="alert alert-danger">
+                    <div *ngIf="f.moneda.errors.required">*moneda is required.</div>
+                    <div *ngIf="f.moneda.errors.pattern">*The moneda must only contain letters.</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6 ">
+                <label for="title">precio:</label>
+                <input formControlName="precio" id="precio" type="text" class="form-control">
+                <div *ngIf="f.precio.touched && f.precio.invalid" class="alert alert-danger">
+                    <div *ngIf="f.precio.errors.required">*precio is required.</div>
+                    <div *ngIf="f.precio.errors.pattern">*The precio must only contain letters.</div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+    </form>
+</div>

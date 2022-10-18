@@ -1,0 +1,26 @@
+<section>
+
+    <div class="d-flex justify-content-between">
+        <h4>Listado de Posiciones</h4>
+        <a routerLink="/posiciones/create" class="btn btn-success">Crear Posicion</a>
+    </div>
+
+    <br>
+
+    <table class="table ">
+        <tr>
+            <th>Empresa</th>
+            <th>Producto</th>
+            <th>fechaEntregaInicio</th>
+            <th>moneda</th>
+            <th>precio</th>
+        </tr>
+        <tr *ngFor="let posicion of posiciones">
+            <td>{{ posicion.razonSocial }}</td>
+            <td>{{ posicion.nombre }}</td>
+            <td>{{ posicion.fechaEntregaInicio }}</td>
+            <td>{{ posicion.moneda }}</td>
+            <td>{{ posicion.precio }}</td>
+        </tr>
+    </table>
+</section>
