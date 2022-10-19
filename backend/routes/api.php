@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\ProductosController;
 use App\Http\Controllers\API\PosicionesController;
+use App\Http\Controllers\API\EmpresasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +32,8 @@ Route::prefix('posiciones')->group(function () {
     Route::get('/',[ PosicionesController::class, 'getAll']);
     Route::post('/',[ PosicionesController::class, 'create']);
     Route::get('/{id}',[ PosicionesController::class, 'get']);
+});
+
+Route::prefix('empresas')->group(function () {
+    Route::get('/',[ EmpresasController::class, 'getAll']);
 });

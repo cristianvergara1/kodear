@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
 import { PosicionesService } from '../posiciones.service';
+import { EmpresasService } from '../../empresas/empresas.service';
+import { ProductosService } from '../../productos/productos.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { Empresas } from '../../empresas/empresas';
+import { Productos } from '../../productos/productos';
 
 @Component({
   selector: 'app-create',
@@ -11,21 +16,38 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class CreateComponent implements OnInit {
 
+  empresas: Empresas[] = [];
+  productos: Productos[] = [];
+  monedas = [
+    {nombre: 'PESOS'},
+    {nombre: 'DOLARES'}
+  ];
+
   form: FormGroup;
 
   constructor(
     public PosicionesService: PosicionesService,
+    public EmpresasService: EmpresasService,
+    public ProductosService: ProductosService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
 
+    this.EmpresasService.getAll().subscribe((data: Empresas[])=>{
+      this.empresas = data;
+    })
+
+    this.ProductosService.getAll().subscribe((data: Productos[])=>{
+      this.productos = data;
+    })
+
     this.form = new FormGroup({
       idEmpresa: new FormControl('', [ Validators.required, Validators.pattern("^[0-9]*$") ]),
       idProducto: new FormControl('', [ Validators.required, Validators.pattern("^[0-9]*$") ]),
-      fechaEntregaInicio: new FormControl(''),
-      moneda: new FormControl(''),
-      precio: new FormControl('')
+      fechaEntregaInicio: new FormControl('', [ Validators.required ]),
+      moneda: new FormControl('', [ Validators.required ]),
+      precio: new FormControl('', [ Validators.required ])
     });
 
   }

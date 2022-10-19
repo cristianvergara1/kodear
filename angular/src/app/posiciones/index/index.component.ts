@@ -13,10 +13,10 @@ export class IndexComponent implements OnInit {
   posiciones: Posiciones[] = [];
 
   // constructor() { }
-  constructor(public personService: PosicionesService) { }
+  constructor(public PosicionesService: PosicionesService) { }
 
   ngOnInit(): void {
-    this.personService.getAll().subscribe((data: Posiciones[])=>{
+    this.PosicionesService.getAll().subscribe((data: Posiciones[])=>{
       this.posiciones = data;
       console.log(this.posiciones);
     })

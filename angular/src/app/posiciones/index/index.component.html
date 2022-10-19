@@ -11,16 +11,16 @@
         <tr>
             <th>Empresa</th>
             <th>Producto</th>
-            <th>fechaEntregaInicio</th>
-            <th>moneda</th>
-            <th>precio</th>
+            <th>Fecha Entrega</th>
+            <th>Moneda</th>
+            <th>Precio</th>
         </tr>
         <tr *ngFor="let posicion of posiciones">
             <td>{{ posicion.razonSocial }}</td>
             <td>{{ posicion.nombre }}</td>
-            <td>{{ posicion.fechaEntregaInicio }}</td>
+            <td>{{ posicion.entrega_format }}</td>
             <td>{{ posicion.moneda }}</td>
-            <td>{{ posicion.precio }}</td>
+            <td>{{ posicion.precio | currency }}</td>
         </tr>
     </table>
 </section>

@@ -5,20 +5,25 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Posicion;
-use Log;
-
-use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class PosicionesController extends Controller
 {
     public function getAll()
     {
-        //$data = Posicion::get();
-        $data = Posicion::select('*')
+        $data = DB::table('posiciones')
+            ->select(
+                    "empresas.razonSocial",
+                    "productos.nombre",
+                    DB::raw("DATE_FORMAT( posiciones.fechaEntregaInicio,  '%d/%m/%Y' ) AS entrega_format"),
+                    "posiciones.moneda",
+                    "posiciones.precio"
+                    )
             ->join('productos', 'productos.id', '=', 'posiciones.idProducto')
             ->join('empresas', 'empresas.id', '=', 'posiciones.idEmpresa')
             ->orderBy('UsoFrecuente')
             ->get();
+
         return response()->json($data, 200);
     }
 
@@ -38,7 +43,6 @@ class PosicionesController extends Controller
                 //en caso de la fecha de entrega ser mayor a la fecha actual procedo a la creacion.
                 $data['idEmpresa'] = $request['idEmpresa'];
                 $data['idProducto'] = $request['idProducto'];
-                $data['Posicion_Excepcional'] = $request['Posicion_Excepcional'];
                 $data['fechaEntregaInicio'] = $request['fechaEntregaInicio'];
                 $data['moneda'] = $request['moneda'];
                 $data['precio'] = $request['precio'];

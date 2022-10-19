@@ -5,12 +5,20 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 Use App\Models\Producto;
-Use Log;
+use Illuminate\Support\Facades\DB;
 
 class ProductosController extends Controller
 {
     public function getAll(){
-      $data = Producto::all()->sortBy("UsoFrecuente");
+      $data = DB::table('productos')
+            ->select(
+                    "productos.id",
+                    "productos.nombre",
+                    "productos.UsoFrecuente"
+                    )
+            ->orderBy('UsoFrecuente')
+            ->get();
+
       return response()->json($data, 200);
     }
 

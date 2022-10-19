@@ -6,6 +6,8 @@ use Illuminate\Console\Command;
 
 use App\Models\Posicion;
 
+use App\Http\Controllers\API\PosicionesController;
+
 class CrearPosicionConsola extends Command
 {
     /**
@@ -13,7 +15,7 @@ class CrearPosicionConsola extends Command
      *
      * @var string
      */
-    protected $signature = 'crear:posicion {idEmpresa} {producto} {fechaEntrega} {moneda} {precio}';
+    protected $signature = 'crear:posicion {idEmpresa?} {producto?} {fechaEntrega?} {moneda?} {precio?}';
 
     /**
      * The console command description.
@@ -45,37 +47,38 @@ class CrearPosicionConsola extends Command
         $fechaEntrega = $this->argument('fechaEntrega');
         $moneda = $this->argument('moneda');
         $precio = $this->argument('precio');
-        
-        //si el importe es mayor a cero procedo a la creacion
-        if($precio>0){
 
-            //comparo la fecha de entrega con la fecha actual
-            $datetime1=date_create($fechaEntrega);
-            $datetime2=date_create(date("Y-m-d"));
-            $interval=date_diff($datetime1, $datetime2);
-            $diferencia=$interval->format('%r%d');
+        $formato='Los parametros deben ser ingresados en el siguiente orden: {idEmpresa} {idProducto} {fechaEntrega, ej: 2022-10-30} {moneda} {precio}';
 
-            if($diferencia<0){
-                //en caso de la fecha de entrega ser mayor a la fecha actual procedo a la creacion.
-                $data['idEmpresa'] = $idEmpresa;
-                $data['idProducto'] = $producto;
-                $data['fechaEntregaInicio'] = $fechaEntrega;
-                $data['moneda'] = $moneda;
-                $data['precio'] = $precio;
-
-                Posicion::create($data);
-
-                $mensaje='Creacion exitosa.';
-
-            }else{
-                $mensaje='Fecha de entrega debe ser mayor a la fecha actual(hoy).';
-            }
-        }else{
-            $mensaje='importe debe ser mayor a 0';
+        if(is_null($idEmpresa)){
+            die('*Empresa es un campo obligatorio. '.$formato);
         }
 
-        die($mensaje);
+        if(is_null($producto)){
+            die('*Producto es un campo obligatorio. '.$formato);
+        }
 
-        return $mensaje;
+        if(is_null($fechaEntrega)){
+            die('*Fecha de Entrega es un campo obligatorio. '.$formato);
+        }
+
+        if(is_null($moneda)){
+            die('*Moneda es un campo obligatorio. '.$formato);
+        }
+
+        if(is_null($precio)){
+            die('*Precio es un campo obligatorio. '.$formato);
+        }
+        
+        $posiciones=new PosicionesController();
+        
+        $request = new \Illuminate\Http\Request();
+        $request->replace(
+            ['idEmpresa' => $idEmpresa, 'idProducto' => $producto, 'fechaEntregaInicio' => $fechaEntrega, 'moneda' => $moneda,'precio' => $precio]
+        );
+        $result=$posiciones->create($request);
+        
+        echo $result->original['message'];
+        
     }
 }

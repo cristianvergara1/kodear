@@ -5,15 +5,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {  Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { Posiciones } from './posiciones';
+import { Empresas } from './empresas';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PosicionesService {
+export class EmpresasService {
 
-  
-  private apiURL = "http://localhost:8000/api/posiciones/";
+  private apiURL = "http://localhost:8000/api/empresas/";
 
   httpOptions = {
      headers: new HttpHeaders({
@@ -23,22 +22,8 @@ export class PosicionesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAll(): Observable<Posiciones[]> {
-   return this.httpClient.get<Posiciones[]>(this.apiURL)
-   .pipe(
-     catchError(this.errorHandler)
-   )
- }
-
- create(person): Observable<Posiciones> {
-   return this.httpClient.post<Posiciones>(this.apiURL, JSON.stringify(person), this.httpOptions)
-   .pipe(
-     catchError(this.errorHandler)
-   )
- }
-
- find(id): Observable<Posiciones> {
-   return this.httpClient.get<Posiciones>(this.apiURL + id)
+  getAll(): Observable<Empresas[]> {
+   return this.httpClient.get<Empresas[]>(this.apiURL)
    .pipe(
      catchError(this.errorHandler)
    )
@@ -53,7 +38,5 @@ export class PosicionesService {
    }
    return throwError(errorMessage);
  }
-
-
 
 }

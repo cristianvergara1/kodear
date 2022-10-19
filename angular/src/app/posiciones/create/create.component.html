@@ -1,7 +1,7 @@
 <div>
 
     <div class="d-flex justify-content-between">
-        <h4>Form customer</h4>
+        <h4>Crear Posición</h4>
         <a href="#" routerLink="/posiciones/index" class="btn btn-primaryt">Volver</a>
     </div>
 
@@ -11,54 +11,64 @@
 
         <div class="form-group row">
             <div class="col-md-6 ">
-                <label for="title">idEmpresa:</label>
-                <input formControlName="idEmpresa" id="idEmpresa" type="text" class="form-control">
+                <label for="title">Empresa:</label>
+                <select class="form-control" formControlName="idEmpresa">
+                    <option [ngValue]="null" disabled>Seleccionar Empresa</option>
+                    <option *ngFor="let empresa of empresas" [ngValue]="empresa.id">
+                        {{ empresa.razonSocial }}
+                    </option>
+                </select>
                 <div *ngIf="f.idEmpresa.touched && f.idEmpresa.invalid" class="alert alert-danger">
-                    <div *ngIf="f.idEmpresa.errors.required">*idEmpresa is required.</div>
-                    <div *ngIf="f.idEmpresa.errors.pattern">*The idEmpresa must only contain letters.</div>
+                    <div *ngIf="f.idEmpresa.errors.required">*Empresa es un campo obligatorio.</div>
                 </div>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-6 ">
-                <label for="title">idProducto:</label>
-                <input formControlName="idProducto" id="idProducto" type="text" class="form-control">
+                <label for="title">Producto:</label>
+                <select class="form-control" formControlName="idProducto">
+                    <option [ngValue]="null" disabled>Seleccionar Producto</option>
+                    <option *ngFor="let producto of productos" [ngValue]="producto.id">
+                        {{ producto.nombre }}
+                    </option>
+                </select>
                 <div *ngIf="f.idProducto.touched && f.idProducto.invalid" class="alert alert-danger">
-                    <div *ngIf="f.idProducto.errors.required">*idProducto is required.</div>
-                    <div *ngIf="f.idProducto.errors.pattern">*The idProducto must only contain letters.</div>
+                    <div *ngIf="f.idProducto.errors.required">*Producto es un campo obligatorio.</div>
                 </div>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-6 ">
-                <label for="title">fechaEntregaInicio:</label>
-                <input formControlName="fechaEntregaInicio" id="fechaEntregaInicio" type="text" class="form-control">
+                <label for="title">Fecha de Entrega:</label>
+                <input formControlName="fechaEntregaInicio" id="fechaEntregaInicio" type="date" class="form-control">
                 <div *ngIf="f.fechaEntregaInicio.touched && f.fechaEntregaInicio.invalid" class="alert alert-danger">
-                    <div *ngIf="f.fechaEntregaInicio.errors.required">*fechaEntregaInicio is required.</div>
-                    <div *ngIf="f.fechaEntregaInicio.errors.pattern">*The fechaEntregaInicio must only contain letters.</div>
+                    <div *ngIf="f.fechaEntregaInicio.errors.required">*Fecha de Entrega es un campo obligatorio.</div>
                 </div>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-6 ">
-                <label for="title">moneda:</label>
-                <input formControlName="moneda" id="moneda" type="text" class="form-control">
+                <label for="title">Moneda:</label>
+                <select class="form-control" formControlName="moneda">
+                    <option [ngValue]="null" disabled>Seleccionar Producto</option>
+                    <option *ngFor="let moneda of monedas" [ngValue]="moneda.nombre">
+                        {{ moneda.nombre }}
+                    </option>
+                </select>
                 <div *ngIf="f.moneda.touched && f.moneda.invalid" class="alert alert-danger">
-                    <div *ngIf="f.moneda.errors.required">*moneda is required.</div>
-                    <div *ngIf="f.moneda.errors.pattern">*The moneda must only contain letters.</div>
+                    <div *ngIf="f.moneda.errors.required">*Moneda es un campo obligatorio.</div>
                 </div>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-6 ">
-                <label for="title">precio:</label>
-                <input formControlName="precio" id="precio" type="text" class="form-control">
+                <label for="title">Precio:</label>
+                <input formControlName="precio" id="precio" type="number" class="form-control">
                 <div *ngIf="f.precio.touched && f.precio.invalid" class="alert alert-danger">
-                    <div *ngIf="f.precio.errors.required">*precio is required.</div>
-                    <div *ngIf="f.precio.errors.pattern">*The precio must only contain letters.</div>
+                    <div *ngIf="f.precio.errors.required">*Precio es un campo obligatorio.</div>
                 </div>
             </div>
         </div>
-        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Enviar</button>
     </form>
 </div>
